@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>السيرة الذاتية</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked@4.0.0/marked.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#5D5CDE',
+                        secondary: '#6366F1',
+                        dark: {
+                            bg: '#181818',
+                            card: '#272727',
+                            text: '#E5E7EB'
+                        },
+                        light: {
+                            bg: '#FFFFFF',
+                            card: '#F3F4F6',
+                            text: '#1F2937'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Noto Sans Arabic', 'sans-serif'],
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.5s ease-in-out',
+                        'slide-up': 'slideUp 0.5s ease-in-out',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        },
+                        slideUp: {
+                            '0%': { transform: 'translateY(20px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' },
+                        }
+                    }
+                }
+            }
+        };
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@300;400;500;600;700&display=swap');
+
+        body {
+            font-family: 'Noto Sans Arabic', sans-serif;
+        }
+
+        .dark {
+            color-scheme: dark;
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(0,0,0,0.1);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--color-primary, #5D5CDE);
+            border-radius: 4px;
+        }
+
+        .dark ::-webkit-scrollbar-track {
+            background: rgba(255,255,255,0.1);
+        }
+
+        /* Skill progress bar animations */
+        .skill-progress {
+            transition: width 1s ease-in-out;
+        }
+
+        /* Project card hover effect */
+        .project-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        .dark .project-card:hover {
+            box-shadow: 0 10px 25px -5px rgba(255, 255, 255, 0.1), 0 10px 10px -5px rgba(255, 255, 255, 0.04);
+        }
+
+        .gallery-item {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.03);
+        }
+
+        /* Modal for gallery */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 50;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.8);
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-content {
+            margin: auto;
+            display: block;
+            max-width: 90%;
+            max-height: 90%;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 35px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .section-animation {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .section-animation.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @media print {
+            .no-print {
+                display: none !important;
+            }
+            .print-friendly {
+                display: block !important;
+                margin: 0;
+                padding: 0;
+            }
+            body {
+                padding: 0 !important;
+                color: black !important;
+                background: white !important;
+            }
+        }
+
+        /* Animated background */
+        .animated-bg {
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+        }
+
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+    </style>
+</head>
+<body class="bg-light-bg dark:bg-dark-bg text-light-text dark:text-dark-text transition-colors duration-300">
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full bg-white/90 dark:bg-dark-bg/90 shadow-md z-10 backdrop-blur-sm transition-all duration-300 no-print">
+        <div class="container mx-auto px-4 py-3">
+            <div class="flex justify-between items-center">
+                <a href="#home" class="text-xl font-bold text-primary transition-colors duration-300">
+                    <span id="nav-name">اسمك هنا</span>
+                </a>
+                <div class="flex items-center space-x-4 space-x-reverse">
+                    <div class="hidden md:flex items-center space-x-6 space-x-reverse">
+                        <a href="#about" class="text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors duration-300">نبذة</a>
+                        <a href="#skills" class="text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors duration-300">المهارات</a>
+                        <a href="#experience" class="text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors duration-300">الخبرات</a>
+                        <a href="#education" class="text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors duration-300">التعليم</a>
+                        <a href="#projects" class="text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors duration-300">المشاريع</a>
+                        <a href="#gallery" class="text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors duration-300">المعرض</a>
+                        <a href="#contact" class="text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors duration-300">التواصل</a>
+                    </div>
+                    <button id="theme-toggle" class="p-2 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-300">
+                        <i class="fas fa-moon dark:hidden"></i>
+                        <i class="fas fa-sun hidden dark:block"></i>
+                    </button>
+                    <button id="download-resume" class="py-2 px-4 bg-primary text-white rounded-lg shadow-md hover:bg-secondary transition-colors duration-300 hidden md:block">
+                        <i class="fas fa-download ml-2"></i>تحميل السيرة
+                    </button>
+                    <button id="mobile-menu-button" class="md:hidden p-2 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-300">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+            <!-- Mobile Menu -->
+            <div id="mobile-menu" class="md:hidden hidden py-4 transition-all duration-300 ease-in-out">
+                <div class="flex flex-col space-y-4">
+                    <a href="#about" class="text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors duration-300">نبذة</a>
+                    <a href="#skills" class="text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors duration-300">المهارات</a>
+                    <a href="#experience" class="text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors duration-300">الخبرات</a>
+                    <a href="#education" class="text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors duration-300">التعليم</a>
+                    <a href="#projects" class="text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors duration-300">المشاريع</a>
+                    <a href="#gallery" class="text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors duration-300">المعرض</a>
+                    <a href="#contact" class="text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors duration-300">التواصل</a>
+                    <button id="download-resume-mobile" class="py-2 px-4 bg-primary text-white rounded-lg shadow-md hover:bg-secondary transition-colors duration-300 text-center">
+                        <i class="fas fa-download ml-2"></i>تحميل السيرة
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header id="home" class="pt-24 pb-16 md:pt-32 md:pb-24 animated-bg bg-gradient-to-r from-indigo-100 via-purple-100 to-blue-100 dark:from-indigo-950/30 dark:via-purple-950/30 dark:to-blue-950/30">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row items-center justify-between">
+                <div class="mb-8 md:mb-0 md:w-1/2 text-center md:text-right" data-aos="fade-up">
+                    <h1 class="text-3xl md:text-5xl font-bold mb-4 text-gray-900 dark:text-white" id="header-name">اسمك الكامل</h1>
+                    <h2 class="text-xl md:text-2xl font-medium mb-6 text-primary" id="header-title">المسمى الوظيفي</h2>
+                    <p class="text-gray-600 dark:text-gray-300 mb-8 max-w-lg mx-auto md:mx-0" id="header-bio">نبذة قصيرة عنك وخبرتك المهنية والمجالات التي تتخصص بها.</p>
+                    <div class="flex flex-wrap justify-center md:justify-end gap-4">
+                        <a href="#contact" class="py-3 px-6 bg-primary text-white rounded-lg shadow-md hover:bg-secondary transition-colors duration-300">
+                            <i class="fas fa-envelope ml-2"></i>تواصل معي
+                        </a>
+                        <a href="#projects" class="py-3 px-6 bg-white dark:bg-gray-800 text-gray-800 dark:text-white rounded-lg shadow-md hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-300">
+                            <i class="fas fa-briefcase ml-2"></i>أعمالي
+                        </a>
+                    </div>
+                </div>
+                <div class="md:w-1/2 flex justify-center md:justify-end" data-aos="fade-left">
+                    <div class="relative">
+                        <div class="absolute inset-0 bg-primary rounded-full blur-md opacity-20 scale-110 animate-pulse"></div>
+                        <div class="relative w-60 h-60 md:w-80 md:h-80 rounded-full overflow-hidden border-4 border-white dark:border-gray-800 shadow-xl">
+                            <img id="profile-img" src="https://images.unsplash.com/photo-1560250097-0b93528c311a" alt="الصورة الشخصية" class="w-full h-full object-cover">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-12">
+        <!-- About Section -->
+        <section id="about" class="mb-20 section-animation">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-4">نبذة عني</h2>
+                <div class="h-1 w-20 bg-primary mx-auto rounded-full"></div>
+            </div>
+            <div class="bg-light-card dark:bg-dark-card rounded-xl shadow-md p-6 md:p-8" data-aos="fade-up">
+                <div class="prose prose-lg max-w-none dark:prose-invert" id="about-content">
+                    <p>هنا يمكنك كتابة نبذة تفصيلية عن خلفيتك المهنية، خبراتك، وما تطمح إليه في مسيرتك المهنية.</p>
+                    <p>يمكنك التحدث عن ما يميزك وقيمك المهنية والمجالات التي تهتم بها والتحديات التي تفضل العمل عليها.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills" class="mb-20 section-animation">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-4">مهاراتي</h2>
+                <div class="h-1 w-20 bg-primary mx-auto rounded-full"></div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8" id="skills-container">
+                <!-- Technical Skills -->
+                <div class="bg-light-card dark:bg-dark-card rounded-xl shadow-md p-6" data-aos="fade-up">
+                    <h3 class="text-xl font-bold text-gray-800 dark:text-white mb-6 flex items-center">
+                        <i class="fas fa-code ml-2 text-primary"></i>
+                        مهارات تقنية
+                    </h3>
+                    <div class="space-y-4" id="technical-skills">
+                        <!-- Skills will be inserted here from the JSON data -->
+                    </div>
+                </div>
+
+                <!-- Languages & Soft Skills -->
+                <div class="bg-light-card dark:bg-dark-card rounded-xl shadow-md p-6" data-aos="fade-up" data-aos-delay="100">
+                    <h3 class="text-xl font-bold text-gray-800 dark:text-white mb-6 flex items-center">
+                        <i class="fas fa-language ml-2 text-primary"></i>
+                        اللغات ومهارات أخرى
+                    </h3>
+                    <div class="space-y-4" id="language-skills">
+                        <!-- Skills will be inserted here from the JSON data -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Experience Section -->
+        <section id="experience" class="mb-20 section-animation">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-4">الخبرات العملية</h2>
+                <div class="h-1 w-20 bg-primary mx-auto rounded-full"></div>
+            </div>
+            <div class="relative">
+                <!-- Timeline line -->
+                <div class="hidden md:block absolute right-1/2 top-0 bottom-0 w-0.5 bg-gray-200 dark:bg-gray-700 transform translate-x-1/2"></div>
+                
+                <!-- Experience items will be inserted here -->
+                <div id="experience-container" class="space-y-12">
+                    <!-- Experience items will be inserted here from the JSON data -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Education Section -->
+        <section id="education" class="mb-20 section-animation">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-4">التعليم والشهادات</h2>
+                <div class="h-1 w-20 bg-primary mx-auto rounded-full"></div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8" id="education-container">
+                <!-- Education items will be inserted here from the JSON data -->
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="mb-20 section-animation">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-4">المشاريع</h2>
+                <div class="h-1 w-20 bg-primary mx-auto rounded-full"></div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="projects-container">
+                <!-- Projects will be inserted here from the JSON data -->
+            </div>
+        </section>
+
+        <!-- Gallery Section -->
+        <section id="gallery" class="mb-20 section-animation">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-4">معرض الأعمال</h2>
+                <div class="h-1 w-20 bg-primary mx-auto rounded-full"></div>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4" id="gallery-container">
+                <!-- Gallery items will be inserted here from the JSON data -->
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="section-animation">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-4">تواصل معي</h2>
+                <div class="h-1 w-20 bg-primary mx-auto rounded-full"></div>
+            </div>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div class="bg-light-card dark:bg-dark-card rounded-xl shadow-md p-6" data-aos="fade-up">
+                    <h3 class="text-xl font-bold text-gray-800 dark:text-white mb-6">وسائل التواصل</h3>
+                    <div class="space-y-4" id="social-links">
+                        <!-- Social links will be inserted here from the JSON data -->
+                    </div>
+                </div>
+                <div class="bg-light-card dark:bg-dark-card rounded-xl shadow-md p-6" data-aos="fade-up" data-aos-delay="100">
+                    <h3 class="text-xl font-bold text-gray-800 dark:text-white mb-6">أرسل رسالة</h3>
+                    <form id="contact-form" class="space-y-4">
+                        <div>
+                            <label for="name" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">الاسم</label>
+                            <input type="text" id="name" name="name" class="w-full px-4 py-3 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-lg text-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary text-base" required>
+                        </div>
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">البريد الإلكتروني</label>
+                            <input type="email" id="email" name="email" class="w-full px-4 py-3 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-lg text-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary text-base" required>
+                        </div>
+                        <div>
+                            <label for="message" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">الرسالة</label>
+                            <textarea id="message" name="message" rows="4" class="w-full px-4 py-3 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-lg text-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary text-base resize-none" required></textarea>
+                        </div>
+                        <button type="submit" class="w-full py-3 px-6 bg-primary text-white rounded-lg shadow-md hover:bg-secondary transition-colors duration-300">
+                            <i class="fas fa-paper-plane ml-2"></i>إرسال
+                        </button>
+                    </form>
+                    <p id="form-status" class="mt-4 text-center hidden"></p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-8 no-print">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <h3 class="text-xl font-bold mb-2" id="footer-name">اسمك هنا</h3>
+                    <p class="text-gray-400" id="footer-title">المسمى الوظيفي</p>
+                </div>
+                <div class="flex space-x-4 space-x-reverse">
+                    <div id="footer-social-links">
+                        <!-- Social icons will be inserted here from the JSON data -->
+                    </div>
+                </div>
+            </div>
+            <hr class="my-6 border-gray-800">
+            <div class="text-center text-gray-400">
+                <p>&copy; <span id="current-year"></span> - جميع الحقوق محفوظة</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Gallery Modal -->
+    <div id="gallery-modal" class="modal">
+        <span class="modal-close">&times;</span>
+        <img class="modal-content" id="modal-img">
+    </div>
+
+    <script>
+        // Resume data - Edit this object to update your resume content
+        const resumeData = {
+            personal: {
+                name: "أحمد محمد",
+                title: "مطور برمجيات FullStack",
+                photo: "https://images.unsplash.com/photo-1560250097-0b93528c311a",
+                bio: "مطور برمجيات متمرس مع خبرة واسعة في تطوير تطبيقات الويب. متخصص في JavaScript، React، Node.js وتطوير واجهات المستخدم.",
+                about: `<p>مرحباً! أنا مبرمج ومطور ويب حاصل على خبرة أكثر من 5 سنوات في تطوير تطبيقات ومواقع تفاعلية متميزة. أتقن العمل مع العديد من التقنيات الحديثة وأسعى دائماً للتعلم والتطور.</p>
+                    <p>أستمتع بحل المشكلات المعقدة وتحويل الأفكار إلى منتجات رقمية عالية الجودة. كما أهتم بتطوير واجهات مستخدم بديهية وسلسة تجعل تجربة المستخدم ممتعة وفعالة.</p>
+                    <p>منهجي في العمل يركز على الجودة والتفاصيل الدقيقة، بالإضافة إلى الالتزام بالمواعيد النهائية وتحقيق أهداف المشروع بكفاءة.</p>`,
+                resume: "https://example.com/resume.pdf" // رابط لتحميل السيرة الذاتية بتنسيق PDF
+            },
+            skills: {
+                technical: [
+                    { name: "HTML/CSS", level: 95 },
+                    { name: "JavaScript", level: 90 },
+                    { name: "React.js", level: 85 },
+                    { name: "Node.js", level: 80 },
+                    { name: "Vue.js", level: 75 },
+                    { name: "Python", level: 70 },
+                    { name: "SQL", level: 80 },
+                    { name: "Git", level: 85 }
+                ],
+                languages: [
+                    { name: "العربية", level: 100 },
+                    { name: "الإنجليزية", level: 90 },
+                    { name: "الفرنسية", level: 60 }
+                ],
+                soft: [
+                    { name: "إدارة المشاريع", level: 85 },
+                    { name: "العمل الجماعي", level: 90 },
+                    { name: "حل المشكلات", level: 85 },
+                    { name: "التواصل", level: 90 }
+                ]
+            },
+            experience: [
+                {
+                    company: "شركة التقنية المتقدمة",
+                    position: "مطور واجهات أمامية أول",
+                    period: "2020 - الآن",
+                    description: "قيادة فريق تطوير الواجهات الأمامية، تصميم وتنفيذ واجهات مستخدم متميزة، تحسين أداء التطبيقات وتجربة المستخدم، وتطبيق أفضل الممارسات البرمجية.",
+                    achievements: [
+                        "تحسين أداء التطبيق الرئيسي بنسبة 40%",
+                        "قيادة إعادة هيكلة كاملة للواجهة الأمامية",
+                        "تدريب وتوجيه 5 مطورين جدد"
+                    ]
+                },
+                {
+                    company: "مؤسسة البرمجيات العالمية",
+                    position: "مطور برمجيات",
+                    period: "2018 - 2020",
+                    description: "تطوير وصيانة تطبيقات الويب، العمل مع APIs والخدمات الخلفية، تحسين وتطوير تجربة المستخدم.",
+                    achievements: [
+                        "تطوير منصة تعليمية تفاعلية",
+                        "تخفيض وقت تحميل الصفحات بنسبة 30%",
+                        "تحسين تجربة المستخدم على الأجهزة المحمولة"
+                    ]
+                },
+                {
+                    company: "استوديو التصميم الإبداعي",
+                    position: "مطور واجهات أمامية",
+                    period: "2016 - 2018",
+                    description: "تحويل تصاميم واجهات المستخدم إلى تطبيقات ويب تفاعلية، تطبيق معايير الوصول والتوافق مع متصفحات مختلفة.",
+                    achievements: [
+                        "تنفيذ أكثر من 20 تصميماً متجاوباً",
+                        "تطوير مكتبة مكونات لتسريع العمل",
+                        "تحسين معايير الوصول في جميع المشاريع"
+                    ]
+                }
+            ],
+            education: [
+                {
+                    degree: "ماجستير علوم الحاسوب",
+                    institution: "جامعة التقنية الحديثة",
+                    period: "2014 - 2016",
+                    description: "تخصص في تطوير البرمجيات وهندسة الويب",
+                    icon: "fa-graduation-cap"
+                },
+                {
+                    degree: "بكالوريوس هندسة البرمجيات",
+                    institution: "جامعة العلوم التطبيقية",
+                    period: "2010 - 2014",
+                    description: "تخرج بتقدير امتياز مع مرتبة الشرف",
+                    icon: "fa-university"
+                },
+                {
+                    degree: "شهادة مطور React المعتمد",
+                    institution: "أكاديمية التطوير المتقدم",
+                    period: "2019",
+                    description: "تطوير تطبيقات متقدمة باستخدام React وRedux",
+                    icon: "fa-certificate"
+                },
+                {
+                    degree: "شهادة مطور Full Stack",
+                    institution: "منصة التعلم الرقمية",
+                    period: "2017",
+                    description: "تطوير تطبيقات متكاملة باستخدام MERN Stack",
+                    icon: "fa-award"
+                }
+            ],
+            projects: [
+                {
+                    title: "منصة التعلم الإلكتروني",
+                    description: "منصة تعليمية تفاعلية تدعم مختلف أنواع المحتوى التعليمي مع نظام إدارة متكامل.",
+                    image: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40",
+                    technologies: ["React", "Node.js", "MongoDB", "Express"],
+                    link: "https://example.com/project1"
+                },
+                {
+                    title: "تطبيق إدارة المهام",
+                    description: "تطبيق ويب لإدارة المهام والمشاريع مع ميزات متقدمة للتعاون وتتبع المهام.",
+                    image: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97",
+                    technologies: ["Vue.js", "Firebase", "Tailwind CSS"],
+                    link: "https://example.com/project2"
+                },
+                {
+                    title: "متجر إلكتروني",
+                    description: "منصة تجارة إلكترونية متكاملة مع نظام دفع آمن وإدارة مخزون وطلبات.",
+                    image: "https://images.unsplash.com/photo-1556155092-490a1ba16284",
+                    technologies: ["React", "Redux", "Node.js", "Stripe"],
+                    link: "https://example.com/project3"
+                },
+                {
+                    title: "تطبيق التواصل الاجتماعي",
+                    description: "منصة تواصل اجتماعي مع ميزات الرسائل، المنشورات، والمجموعات.",
+                    image: "https://images.unsplash.com/photo-1522542550221-31fd19575a2d",
+                    technologies: ["React Native", "GraphQL", "AWS"],
+                    link: "https://example.com/project4"
+                },
+                {
+                    title: "لوحة تحكم تحليلات",
+                    description: "لوحة تحكم تفاعلية لعرض وتحليل البيانات مع رسوم بيانية متقدمة.",
+                    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71",
+                    technologies: ["D3.js", "React", "Express", "PostgreSQL"],
+                    link: "https://example.com/project5"
+                }
+            ],
+            gallery: [
+                {
+                    title: "تصميم واجهة المستخدم",
+                    image: "https://images.unsplash.com/photo-1558655146-d09347e92766"
+                },
+                {
+                    title: "تطبيق الهاتف المحمول",
+                    image: "https://images.unsplash.com/photo-1551650975-87deedd944c3"
+                },
+                {
+                    title: "موقع ويب تفاعلي",
+                    image: "https://images.unsplash.com/photo-1547658719-da2b51169166"
+                },
+                {
+                    title: "لوحة تحكم المشروع",
+                    image: "https://images.unsplash.com/photo-1484417894907-623942c8ee29"
+                },
+                {
+                    title: "تصميم شعار",
+                    image: "https://images.unsplash.com/photo-1626785774573-4b799315345d"
+                },
+                {
+                    title: "واجهة مستخدم تطبيق",
+                    image: "https://images.unsplash.com/photo-1507721999472-8ed4421c4af2"
+                },
+                {
+                    title: "تطبيق سطح المكتب",
+                    image: "https://images.unsplash.com/photo-1485988412941-77a35537dae4"
+                },
+                {
+                    title: "تصميم متجاوب",
+                    image: "https://images.unsplash.com/photo-1517430816045-df4b7de11d1d"
+                }
+            ],
+            contact: {
+                email: "contact@example.com",
+                phone: "+123456789",
+                location: "دبي، الإمارات العربية المتحدة",
+                social: [
+                    { name: "LinkedIn", icon: "fa-linkedin", link: "https://linkedin.com/in/example" },
+                    { name: "GitHub", icon: "fa-github", link: "https://github.com/example" },
+                    { name: "Twitter", icon: "fa-twitter", link: "https://twitter.com/example" },
+                    { name: "Dribbble", icon: "fa-dribbble", link: "https://dribbble.com/example" }
+                ]
+            }
+        };
+
+        // Initialize the application
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize AOS animation library
+            AOS.init({
+                duration: 800,
+                easing: 'ease-in-out',
+                once: true
+            });
+
+            // Set current year in footer
+            document.getElementById('current-year').textContent = new Date().getFullYear();
+
+            // Populate resume data
+            populateResumeData();
+
+            // Mobile menu toggle
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenuButton.addEventListener('click', function() {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            // Theme toggle
+            const themeToggle = document.getElementById('theme-toggle');
+            themeToggle.addEventListener('click', toggleDarkMode);
+
+            // Check for user's preferred color scheme
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                document.documentElement.classList.add('dark');
+            }
+
+            // Listen for changes in color scheme preference
+            window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
+                if (event.matches) {
+                    document.documentElement.classList.add('dark');
+                } else {
+                    document.documentElement.classList.remove('dark');
+                }
+            });
+
+            // Gallery modal
+            const modal = document.getElementById("gallery-modal");
+            const modalImg = document.getElementById("modal-img");
+            const closeBtn = document.getElementsByClassName("modal-close")[0];
+
+            // Close the modal when clicking the close button
+            closeBtn.onclick = function() {
+                modal.style.display = "none";
+            }
+
+            // Close the modal when clicking outside the image
+            modal.onclick = function(event) {
+                if (event.target === modal) {
+                    modal.style.display = "none";
+                }
+            }
+
+            // Resume download button
+            const downloadResumeBtn = document.getElementById('download-resume');
+            const downloadResumeMobileBtn = document.getElementById('download-resume-mobile');
+            
+            downloadResumeBtn.addEventListener('click', function() {
+                window.open(resumeData.personal.resume, '_blank');
+            });
+            
+            downloadResumeMobileBtn.addEventListener('click', function() {
+                window.open(resumeData.personal.resume, '_blank');
+            });
+
+            // Contact form submission
+            const contactForm = document.getElementById('contact-form');
+            const formStatus = document.getElementById('form-status');
+            
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                formStatus.classList.remove('hidden', 'text-green-500', 'text-red-500');
+                formStatus.classList.add('text-yellow-500');
+                formStatus.textContent = 'جاري إرسال الرسالة...';
+                
+                // Simulate form submission
+                setTimeout(function() {
+                    formStatus.classList.remove('text-yellow-500');
+                    formStatus.classList.add('text-green-500');
+                    formStatus.textContent = 'تم إرسال الرسالة بنجاح!';
+                    contactForm.reset();
+                    
+                    // Hide the success message after a few seconds
+                    setTimeout(function() {
+                        formStatus.classList.add('hidden');
+                    }, 5000);
+                }, 1500);
+            });
+
+            // Navigation scroll effects
+            const navLinks = document.querySelectorAll('nav a[href^="#"]');
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Close mobile menu if open
+                    if (!mobileMenu.classList.contains('hidden')) {
+                        mobileMenu.classList.add('hidden');
+                    }
+                    
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    if (targetElement) {
+                        const navHeight = document.querySelector('nav').offsetHeight;
+                        const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - navHeight;
+                        
+                        window.scrollTo({
+                            top: targetPosition,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+
+            // Animate sections on scroll
+            const sections = document.querySelectorAll('.section-animation');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+        });
+
+        // Toggle dark mode
+        function toggleDarkMode() {
+            document.documentElement.classList.toggle('dark');
+        }
+
+        // Populate resume data from the JSON object
+        function populateResumeData() {
+            // Personal info
+            document.getElementById('nav-name').textContent = resumeData.personal.name;
+            document.getElementById('header-name').textContent = resumeData.personal.name;
+            document.getElementById('header-title').textContent = resumeData.personal.title;
+            document.getElementById('header-bio').textContent = resumeData.personal.bio;
+            document.getElementById('profile-img').src = resumeData.personal.photo;
+            document.getElementById('footer-name').textContent = resumeData.personal.name;
+            document.getElementById('footer-title').textContent = resumeData.personal.title;
+            document.getElementById('about-content').innerHTML = resumeData.personal.about;
+
+            // Skills
+            const technicalSkillsContainer = document.getElementById('technical-skills');
+            resumeData.skills.technical.forEach(skill => {
+                const skillElement = createSkillElement(skill);
+                technicalSkillsContainer.appendChild(skillElement);
+            });
+
+            const languageSkillsContainer = document.getElementById('language-skills');
+            // Language skills
+            resumeData.skills.languages.forEach(skill => {
+                const skillElement = createSkillElement(skill);
+                languageSkillsContainer.appendChild(skillElement);
+            });
+            
+            // Soft skills
+            resumeData.skills.soft.forEach(skill => {
+                const skillElement = createSkillElement(skill);
+                languageSkillsContainer.appendChild(skillElement);
+            });
+
+            // Experience
+            const experienceContainer = document.getElementById('experience-container');
+            resumeData.experience.forEach((exp, index) => {
+                experienceContainer.appendChild(createExperienceElement(exp, index));
+            });
+
+            // Education
+            const educationContainer = document.getElementById('education-container');
+            resumeData.education.forEach(edu => {
+                educationContainer.appendChild(createEducationElement(edu));
+            });
+
+            // Projects
+            const projectsContainer = document.getElementById('projects-container');
+            resumeData.projects.forEach(project => {
+                projectsContainer.appendChild(createProjectElement(project));
+            });
+
+            // Gallery
+            const galleryContainer = document.getElementById('gallery-container');
+            resumeData.gallery.forEach(item => {
+                galleryContainer.appendChild(createGalleryElement(item));
+            });
+
+            // Contact social links
+            const socialLinksContainer = document.getElementById('social-links');
+            
+            // Add email
+            const emailElement = document.createElement('div');
+            emailElement.className = 'flex items-center text-gray-800 dark:text-gray-200';
+            emailElement.innerHTML = `
+                <div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center mr-3">
+                    <i class="fas fa-envelope text-primary"></i>
+                </div>
+                <div>
+                    <p class="font-medium">البريد الإلكتروني</p>
+                    <a href="mailto:${resumeData.contact.email}" class="text-primary hover:underline">${resumeData.contact.email}</a>
+                </div>
+            `;
+            socialLinksContainer.appendChild(emailElement);
+            
+            // Add phone
+            const phoneElement = document.createElement('div');
+            phoneElement.className = 'flex items-center text-gray-800 dark:text-gray-200';
+            phoneElement.innerHTML = `
+                <div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center mr-3">
+                    <i class="fas fa-phone text-primary"></i>
+                </div>
+                <div>
+                    <p class="font-medium">الهاتف</p>
+                    <a href="tel:${resumeData.contact.phone}" class="text-primary hover:underline">${resumeData.contact.phone}</a>
+                </div>
+            `;
+            socialLinksContainer.appendChild(phoneElement);
+            
+            // Add location
+            const locationElement = document.createElement('div');
+            locationElement.className = 'flex items-center text-gray-800 dark:text-gray-200';
+            locationElement.innerHTML = `
+                <div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center mr-3">
+                    <i class="fas fa-map-marker-alt text-primary"></i>
+                </div>
+                <div>
+                    <p class="font-medium">الموقع</p>
+                    <p>${resumeData.contact.location}</p>
+                </div>
+            `;
+            socialLinksContainer.appendChild(locationElement);
+
+            // Footer social links
+            const footerSocialLinks = document.getElementById('footer-social-links');
+            resumeData.contact.social.forEach(social => {
+                const link = document.createElement('a');
+                link.href = social.link;
+                link.target = "_blank";
+                link.rel = "noopener noreferrer";
+                link.className = "w-10 h-10 rounded-full bg-gray-800 hover:bg-primary flex items-center justify-center transition-colors duration-300";
+                link.innerHTML = `<i class="fab ${social.icon}"></i>`;
+                link.setAttribute('aria-label', social.name);
+                
+                footerSocialLinks.appendChild(link);
+            });
+        }
+
+        // Create skill element
+        function createSkillElement(skill) {
+            const skillDiv = document.createElement('div');
+            skillDiv.innerHTML = `
+                <div class="flex justify-between items-center mb-1">
+                    <span class="text-gray-700 dark:text-gray-300 font-medium">${skill.name}</span>
+                    <span class="text-gray-600 dark:text-gray-400 text-sm">${skill.level}%</span>
+                </div>
+                <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2.5">
+                    <div class="bg-primary h-2.5 rounded-full skill-progress" style="width: 0%"></div>
+                </div>
+            `;
+            
+            // Animate the skill bar on creation
+            setTimeout(() => {
+                skillDiv.querySelector('.skill-progress').style.width = `${skill.level}%`;
+            }, 100);
+            
+            return skillDiv;
+        }
+
+        // Create experience element
+        function createExperienceElement(exp, index) {
+            const experienceDiv = document.createElement('div');
+            experienceDiv.className = 'relative flex md:items-center';
+            
+            // Alternate left and right side for experience items on desktop
+            const isEven = index % 2 === 0;
+            const floatClass = isEven ? 'md:mr-auto md:w-1/2 md:text-left' : 'md:ml-auto md:w-1/2';
+            const timelineIconPositionClass = isEven ? 'md:left-0 md:translate-x-0 md:translate-x-0 md:-translate-x-1/2' : 'md:right-0 md:translate-x-1/2';
+            
+            experienceDiv.setAttribute('data-aos', isEven ? 'fade-left' : 'fade-right');
+            
+            // Create the timeline structure
+            experienceDiv.innerHTML = `
+                <div class="md:absolute md:top-0 ${timelineIconPositionClass} z-10">
+                    <div class="flex items-center justify-center w-12 h-12 rounded-full bg-primary text-white shadow-md">
+                        <i class="fas fa-briefcase"></i>
+                    </div>
+                </div>
+                
+                <div class="ml-5 md:ml-0 pr-4 w-full ${floatClass} p-6 bg-light-card dark:bg-dark-card rounded-xl shadow-md">
+                    <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-4">
+                        <h3 class="text-xl font-bold text-gray-900 dark:text-white">${exp.position}</h3>
+                        <span class="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm font-medium mt-2 md:mt-0">${exp.period}</span>
+                    </div>
+                    <h4 class="text-lg font-medium text-gray-800 dark:text-gray-200 mb-3">${exp.company}</h4>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4">${exp.description}</p>
+                    
+                    ${exp.achievements ? `
+                    <div class="mt-4">
+                        <h5 class="font-medium text-gray-800 dark:text-gray-200 mb-2">الإنجازات الرئيسية:</h5>
+                        <ul class="list-disc text-gray-600 dark:text-gray-300 pr-6">
+                            ${exp.achievements.map(achievement => `<li>${achievement}</li>`).join('')}
+                        </ul>
+                    </div>` : ''}
+                </div>
+            `;
+            
+            return experienceDiv;
+        }
+
+        // Create education element
+        function createEducationElement(edu) {
+            const educationDiv = document.createElement('div');
+            educationDiv.className = 'bg-light-card dark:bg-dark-card rounded-xl shadow-md p-6 transition-all duration-300 hover:shadow-lg';
+            educationDiv.setAttribute('data-aos', 'zoom-in');
+            
+            educationDiv.innerHTML = `
+                <div class="flex items-start">
+                    <div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mr-4 flex-shrink-0">
+                        <i class="fas ${edu.icon || 'fa-graduation-cap'} text-primary text-xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">${edu.degree}</h3>
+                        <div class="flex flex-col md:flex-row md:items-center text-gray-600 dark:text-gray-300 mb-3">
+                            <span class="font-medium text-gray-800 dark:text-gray-200">${edu.institution}</span>
+                            <span class="hidden md:block mx-2">•</span>
+                            <span>${edu.period}</span>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-300">${edu.description}</p>
+                    </div>
+                </div>
+            `;
+            
+            return educationDiv;
+        }
+
+        // Create project element
+        function createProjectElement(project) {
+            const projectDiv = document.createElement('div');
+            projectDiv.className = 'project-card bg-light-card dark:bg-dark-card rounded-xl shadow-md overflow-hidden';
+            projectDiv.setAttribute('data-aos', 'fade-up');
+            
+            projectDiv.innerHTML = `
+                <div class="relative w-full h-48 overflow-hidden">
+                    <img src="${project.image}" alt="${project.title}" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">${project.title}</h3>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4">${project.description}</p>
+                    <div class="flex flex-wrap gap-2 mb-5">
+                        ${project.technologies.map(tech => 
+                            `<span class="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm">${tech}</span>`
+                        ).join('')}
+                    </div>
+                    <a href="${project.link}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center text-primary hover:text-secondary transition-colors duration-300">
+                        عرض المشروع
+                        <i class="fas fa-arrow-left mr-2"></i>
+                    </a>
+                </div>
+            `;
+            
+            return projectDiv;
+        }
+
+        // Create gallery element
+        function createGalleryElement(item) {
+            const galleryItem = document.createElement('div');
+            galleryItem.className = 'gallery-item rounded-lg overflow-hidden shadow-md';
+            galleryItem.setAttribute('data-aos', 'fade-up');
+            
+            galleryItem.innerHTML = `
+                <div class="relative group h-60 overflow-hidden">
+                    <img src="${item.image}" alt="${item.title}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                        <h3 class="text-white font-medium">${item.title}</h3>
+                    </div>
+                </div>
+            `;
+            
+            // Add click event to open modal
+            galleryItem.addEventListener('click', function() {
+                const modal = document.getElementById("gallery-modal");
+                const modalImg = document.getElementById("modal-img");
+                modal.style.display = "flex";
+                modalImg.src = item.image;
+            });
+            
+            return galleryItem;
+        }
+    </script>
+</body>
+</html>
