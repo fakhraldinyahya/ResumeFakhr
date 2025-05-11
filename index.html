@@ -147,7 +147,7 @@
             opacity: 1;
             transform: translateY(0);
         }
-
+        
         @media print {
             .no-print {
                 display: none !important;
@@ -195,6 +195,9 @@
                         <a href="#gallery" class="text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors duration-300">المعرض</a>
                         <a href="#contact" class="text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors duration-300">التواصل</a>
                     </div>
+                    <button id="lang-toggle" class="p-2 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-300 mr-2">
+                        <span id="lang-toggle-text">EN</span>
+                    </button>
                     <button id="theme-toggle" class="p-2 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-300">
                         <i class="fas fa-moon dark:hidden"></i>
                         <i class="fas fa-sun hidden dark:block"></i>
@@ -246,7 +249,7 @@
                     <div class="relative">
                         <div class="absolute inset-0 bg-primary rounded-full blur-md opacity-20 scale-110 animate-pulse"></div>
                         <div class="relative w-60 h-60 md:w-80 md:h-80 rounded-full overflow-hidden border-4 border-white dark:border-gray-800 shadow-xl">
-                            <img id="profile-img" src="https://images.unsplash.com/photo-1560250097-0b93528c311a" alt="الصورة الشخصية" class="w-full h-full object-cover">
+                            <img id="profile-img" src="https://images.unsplash.com/photo-1560250097-0b93528c311a" alt="الصورة الشخصية" class="w-full object-cover">
                         </div>
                     </div>
                 </div>
@@ -364,8 +367,8 @@
                     </div>
                 </div>
                 <div class="bg-light-card dark:bg-dark-card rounded-xl shadow-md p-6" data-aos="fade-up" data-aos-delay="100">
-                    <h3 class="text-xl font-bold text-gray-800 dark:text-white mb-6">أرسل رسالة</h3>
                     <form id="contact-form" class="space-y-4">
+                        <h3 class="text-xl font-bold text-gray-800 dark:text-white mb-6">أرسل رسالة</h3>
                         <div>
                             <label for="name" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">الاسم</label>
                             <input type="text" id="name" name="name" class="w-full px-4 py-3 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-lg text-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary text-base" required>
@@ -416,16 +419,109 @@
     </div>
 
     <script>
+        // Language and direction management
+        let currentLanguage = 'ar';
+
+        function toggleLanguage() {
+            currentLanguage = currentLanguage === 'ar' ? 'en' : 'ar';
+            updateTextDirection();
+            updateLanguageUI();
+            populateResumeData();
+        }
+
+        function updateTextDirection() {
+            const html = document.documentElement;
+            if (currentLanguage === 'ar') {
+                html.setAttribute('dir', 'rtl');
+                html.setAttribute('lang', 'ar');
+            } else {
+                html.setAttribute('dir', 'ltr');
+                html.setAttribute('lang', 'en');
+            }
+            
+            // إعادة تحميل بعض العناصر لتفادي مشاكل التنسيق
+            setTimeout(() => {
+                AOS.refresh();
+            }, 300);
+        }
+        
+        
+        function updateLanguageUI() {
+            const langToggleText = document.getElementById('lang-toggle-text');
+            langToggleText.textContent = currentLanguage === 'ar' ? 'EN' : 'AR';
+            
+            // Update navigation links based on language
+            const navLinks = document.querySelectorAll('nav a[href^="#"]');
+            if (currentLanguage === 'en') {
+                document.querySelector('a[href="#about"]').textContent = 'About';
+                document.querySelector('a[href="#skills"]').textContent = 'Skills';
+                document.querySelector('a[href="#experience"]').textContent = 'Experience';
+                document.querySelector('a[href="#education"]').textContent = 'Education';
+                document.querySelector('a[href="#projects"]').textContent = 'Projects';
+                document.querySelector('a[href="#gallery"]').textContent = 'Gallery';
+                document.querySelector('a[href="#contact"]').textContent = 'Contact';
+                document.getElementById('download-resume').innerHTML = '<i class="fas fa-download ml-2"></i>Download CV';
+                document.getElementById('download-resume-mobile').innerHTML = '<i class="fas fa-download ml-2"></i>Download CV';
+            } else {
+                document.querySelector('a[href="#about"]').textContent = 'نبذة';
+                document.querySelector('a[href="#skills"]').textContent = 'المهارات';
+                document.querySelector('a[href="#experience"]').textContent = 'الخبرات';
+                document.querySelector('a[href="#education"]').textContent = 'التعليم';
+                document.querySelector('a[href="#projects"]').textContent = 'المشاريع';
+                document.querySelector('a[href="#gallery"]').textContent = 'المعرض';
+                document.querySelector('a[href="#contact"]').textContent = 'التواصل';
+                document.getElementById('download-resume').innerHTML = '<i class="fas fa-download ml-2"></i>تحميل السيرة';
+                document.getElementById('download-resume-mobile').innerHTML = '<i class="fas fa-download ml-2"></i>تحميل السيرة';
+            }
+            
+            // Update section headings
+            const sectionHeadings = document.querySelectorAll('section h2');
+            if (currentLanguage === 'en') {
+                document.querySelector('#about h2').textContent = 'About Me';
+                document.querySelector('#skills h2').textContent = 'My Skills';
+                document.querySelector('#experience h2').textContent = 'Work Experience';
+                document.querySelector('#education h2').textContent = 'Education & Certifications';
+                document.querySelector('#projects h2').textContent = 'Projects';
+                document.querySelector('#gallery h2').textContent = 'Work Gallery';
+                document.querySelector('#contact h2').textContent = 'Contact Me';
+                document.querySelector('#contact h3').textContent = 'Contact Information';
+                document.querySelector('#contact-form h3').textContent = 'Send a Message';
+                document.querySelector('label[for="name"]').textContent = 'Name';
+                document.querySelector('label[for="email"]').textContent = 'Email';
+                document.querySelector('label[for="message"]').textContent = 'Message';
+                document.querySelector('#contact-form button').innerHTML = '<i class="fas fa-paper-plane ml-2"></i>Send';
+            } else {
+                document.querySelector('#about h2').textContent = 'نبذة عني';
+                document.querySelector('#skills h2').textContent = 'مهاراتي';
+                document.querySelector('#experience h2').textContent = 'الخبرات العملية';
+                document.querySelector('#education h2').textContent = 'التعليم والشهادات';
+                document.querySelector('#projects h2').textContent = 'المشاريع';
+                document.querySelector('#gallery h2').textContent = 'معرض الأعمال';
+                document.querySelector('#contact h2').textContent = 'تواصل معي';
+                document.querySelector('#contact h3').textContent = 'وسائل التواصل';
+                document.querySelector('#contact-form h3').textContent = 'أرسل رسالة';
+                document.querySelector('label[for="name"]').textContent = 'الاسم';
+                document.querySelector('label[for="email"]').textContent = 'البريد الإلكتروني';
+                document.querySelector('label[for="message"]').textContent = 'الرسالة';
+                document.querySelector('#contact-form button').innerHTML = '<i class="fas fa-paper-plane ml-2"></i>إرسال';
+            }
+        }
         // Resume data - Edit this object to update your resume content
         const resumeData = {
             personal: {
-                name: "أحمد محمد",
-                title: "مطور برمجيات FullStack",
-                photo: "https://images.unsplash.com/photo-1560250097-0b93528c311a",
-                bio: "مطور برمجيات متمرس مع خبرة واسعة في تطوير تطبيقات الويب. متخصص في JavaScript، React، Node.js وتطوير واجهات المستخدم.",
-                about: `<p>مرحباً! أنا مبرمج ومطور ويب حاصل على خبرة أكثر من 5 سنوات في تطوير تطبيقات ومواقع تفاعلية متميزة. أتقن العمل مع العديد من التقنيات الحديثة وأسعى دائماً للتعلم والتطور.</p>
+                name: "فخرالدين يحيى",
+                title: "مطور برمجيات Full-Stack",
+                // photo: "https://images.unsplash.com/photo-1560250097-0b93528c311a",
+
+                photo: "img/fakhr.jpg",
+                bio: "أنا مطور Full-Stack متخصص أساسًا في تطوير تطبيقات الويب باستخدام Django، وأمتلك خبرة واسعة في لغات وتقنيات متعددة في هذا المجال، مثل:HTML5، CSS3، JavaScript، jQuery، Bootstrap وغيرها.",
+                about: `<p>مرحباً! أنامطور ويب لدي خبرة عملية لمدة 3 سنوات في شركة IT Tech، حيث شاركت في تطوير نظام ERP، مما عزز خبرتي في بناء أنظمة متكاملة ومعقدة تلبي احتياجات المؤسسات باحترافية
+                    أتمتع بخبرة ممتازة في التعامل مع المنصات المختلفة، والأدوات، واللغات المتنوعة، مما يمكنني من بناء تطبيقات قوية وفعّالة، وأحرص دائمًا على كتابة كود نظيف ومنظم، مع الالتزام التام بالمواعيد النهائية، والعمل بجودة واحترافية عالية.
+                    لدي القدرة على تنظيم العمل، تنسيق المهام المتعددة، وتحديد الأولويات بفعالية، بالإضافة إلى الحفاظ على علاقات عمل ناجحة مع فرق متعددة الثقافات والعمل ضمن بيئة جماعية تعاونية.
+                    كما أتمتع بمرونة عالية ورغبة مستمرة في التعلم والتطوير.
+                    أحب العمل في مجال الويب وأسعى لتطوير برامج آمنة، سريعة، وبسيطة في الاستخدام، مع أقل نسبة ممكنة من الأخطاء. </p>
                     <p>أستمتع بحل المشكلات المعقدة وتحويل الأفكار إلى منتجات رقمية عالية الجودة. كما أهتم بتطوير واجهات مستخدم بديهية وسلسة تجعل تجربة المستخدم ممتعة وفعالة.</p>
-                    <p>منهجي في العمل يركز على الجودة والتفاصيل الدقيقة، بالإضافة إلى الالتزام بالمواعيد النهائية وتحقيق أهداف المشروع بكفاءة.</p>`,
+                    `,
                 resume: "https://example.com/resume.pdf" // رابط لتحميل السيرة الذاتية بتنسيق PDF
             },
             skills: {
@@ -488,25 +584,18 @@
             ],
             education: [
                 {
-                    degree: "ماجستير علوم الحاسوب",
-                    institution: "جامعة التقنية الحديثة",
+                    degree: "بكالوريوس نظم معلومات",
+                    institution: "جامعة عمران",
                     period: "2014 - 2016",
-                    description: "تخصص في تطوير البرمجيات وهندسة الويب",
+                    description: "تخرج الاول على الدفعة بتقدير امتياز  مع مرتبة الشرف",
                     icon: "fa-graduation-cap"
                 },
                 {
-                    degree: "بكالوريوس هندسة البرمجيات",
-                    institution: "جامعة العلوم التطبيقية",
-                    period: "2010 - 2014",
-                    description: "تخرج بتقدير امتياز مع مرتبة الشرف",
-                    icon: "fa-university"
-                },
-                {
-                    degree: "شهادة مطور React المعتمد",
-                    institution: "أكاديمية التطوير المتقدم",
-                    period: "2019",
-                    description: "تطوير تطبيقات متقدمة باستخدام React وRedux",
-                    icon: "fa-certificate"
+                    degree: "ثانوية عامة القسم العلمي ",
+                    institution: "مدرسة الشهيد عبدالله كامل",
+                    period: "2015 - 2016",
+                    description: "ثانوية عامة القسم العلمي بمعدل 84% للعام 2015-2016م ",
+                    icon: "fa-graduation-cap"
                 },
                 {
                     degree: "شهادة مطور Full Stack",
@@ -588,18 +677,175 @@
                 }
             ],
             contact: {
-                email: "contact@example.com",
-                phone: "+123456789",
-                location: "دبي، الإمارات العربية المتحدة",
+                email: "fakhraldinyahi@gmail.com",
+                phone: "+967774922469",
+                location: "عمران، اليمن",
                 social: [
                     { name: "LinkedIn", icon: "fa-linkedin", link: "https://linkedin.com/in/example" },
-                    { name: "GitHub", icon: "fa-github", link: "https://github.com/example" },
+                    { name: "GitHub", icon: "fa-github", link: "https://github.com/fakhraldinyahya" },
                     { name: "Twitter", icon: "fa-twitter", link: "https://twitter.com/example" },
-                    { name: "Dribbble", icon: "fa-dribbble", link: "https://dribbble.com/example" }
+                    { name: "Facebook", icon: "fa-facebook", link: "https://facebook.com/example" },
                 ]
             }
         };
 
+        // Resume data - Arabic
+        const resumeDataAr = { ...resumeData };
+        // Resume data - English
+        const resumeDataEn = {
+            personal: {
+                name: "Fakhr Aldin Yahya",
+                title: "Full-Stack Software Developer",
+                photo: "img/fakhr.jpg",
+                bio: "I am a Full-Stack developer mainly specialized in web applications using Django, with broad experience in various languages and technologies such as HTML5, CSS3, JavaScript, jQuery, Bootstrap, and more.",
+                about: `<p>Hello! I am a web developer with 3 years of experience at IT Tech, where I participated in developing an ERP system, enhancing my expertise in building integrated and complex systems that meet organizational needs professionally.
+                I have excellent experience working with different platforms, tools, and languages, enabling me to build robust and efficient applications. I always strive to write clean and organized code, strictly adhere to deadlines, and work with high quality and professionalism.
+                I am skilled at organizing work, coordinating multiple tasks, setting priorities effectively, and maintaining successful working relationships with multicultural teams in a collaborative environment.
+                I am also highly flexible and eager to learn and develop continuously.
+                I love working in web development and aim to create secure, fast, and user-friendly programs with minimal errors.</p>
+                <p>I enjoy solving complex problems and turning ideas into high-quality digital products. I am also interested in developing intuitive and smooth user interfaces for an enjoyable and effective user experience.</p>`,
+                resume: "https://example.com/resume-en.pdf"
+            },
+            skills: {
+                technical: [
+                    { name: "HTML/CSS", level: 95 },
+                    { name: "JavaScript", level: 90 },
+                    { name: "React.js", level: 85 },
+                    { name: "Node.js", level: 80 },
+                    { name: "Vue.js", level: 75 },
+                    { name: "Python", level: 70 },
+                    { name: "SQL", level: 80 },
+                    { name: "Git", level: 85 }
+                ],
+                languages: [
+                    { name: "Arabic", level: 100 },
+                    { name: "English", level: 90 },
+                    { name: "French", level: 60 }
+                ],
+                soft: [
+                    { name: "Project Management", level: 85 },
+                    { name: "Teamwork", level: 90 },
+                    { name: "Problem Solving", level: 85 },
+                    { name: "Communication", level: 90 }
+                ]
+            },
+            experience: [
+                {
+                    company: "Advanced Technology Company",
+                    position: "Senior Frontend Developer",
+                    period: "2020 - Present",
+                    description: "Leading the frontend team, designing and implementing outstanding user interfaces, improving app performance and user experience, and applying best coding practices.",
+                    achievements: [
+                        "Improved main app performance by 40%",
+                        "Led a complete frontend restructuring",
+                        "Trained and mentored 5 new developers"
+                    ]
+                },
+                {
+                    company: "Global Software Foundation",
+                    position: "Software Developer",
+                    period: "2018 - 2020",
+                    description: "Developed and maintained web applications, worked with APIs and backend services, and enhanced user experience.",
+                    achievements: [
+                        "Developed an interactive learning platform",
+                        "Reduced page load time by 30%",
+                        "Improved mobile user experience"
+                    ]
+                },
+                {
+                    company: "Creative Design Studio",
+                    position: "Frontend Developer",
+                    period: "2016 - 2018",
+                    description: "Converted UI designs into interactive web apps, applied accessibility standards, and ensured cross-browser compatibility.",
+                    achievements: [
+                        "Implemented over 20 responsive designs",
+                        "Developed a component library to speed up work",
+                        "Improved accessibility standards in all projects"
+                    ]
+                }
+            ],
+            education: [
+                {
+                    degree: "BSc in Information Systems",
+                    institution: "Amran University",
+                    period: "2014 - 2016",
+                    description: "Graduated top of the class with honors.",
+                    icon: "fa-graduation-cap"
+                },
+                {
+                    degree: "High School - Science Section",
+                    institution: "Al-Shaheed Abdullah Kamel School",
+                    period: "2015 - 2016",
+                    description: "High school diploma, science section, with a grade of 84% for 2015-2016.",
+                    icon: "fa-graduation-cap"
+                },
+                {
+                    degree: "Full Stack Developer Certificate",
+                    institution: "Digital Learning Platform",
+                    period: "2017",
+                    description: "Developed integrated applications using MERN Stack.",
+                    icon: "fa-award"
+                }
+            ],
+            projects: [
+                {
+                    title: "E-Learning Platform",
+                    description: "An interactive educational platform supporting various content types with an integrated management system.",
+                    image: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40",
+                    technologies: ["React", "Node.js", "MongoDB", "Express"],
+                    link: "https://example.com/project1"
+                },
+                {
+                    title: "Task Management App",
+                    description: "A web app for managing tasks and projects with advanced collaboration and tracking features.",
+                    image: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97",
+                    technologies: ["Vue.js", "Firebase", "Tailwind CSS"],
+                    link: "https://example.com/project2"
+                },
+                {
+                    title: "E-Commerce Store",
+                    description: "A comprehensive e-commerce platform with secure payment, inventory, and order management.",
+                    image: "https://images.unsplash.com/photo-1556155092-490a1ba16284",
+                    technologies: ["React", "Redux", "Node.js", "Stripe"],
+                    link: "https://example.com/project3"
+                },
+                {
+                    title: "Social Media App",
+                    description: "A social media platform with messaging, posts, and groups features.",
+                    image: "https://images.unsplash.com/photo-1522542550221-31fd19575a2d",
+                    technologies: ["React Native", "GraphQL", "AWS"],
+                    link: "https://example.com/project4"
+                },
+                {
+                    title: "Analytics Dashboard",
+                    description: "An interactive dashboard for data visualization and analysis with advanced charts.",
+                    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71",
+                    technologies: ["D3.js", "React", "Express", "PostgreSQL"],
+                    link: "https://example.com/project5"
+                }
+            ],
+            gallery: [
+                { title: "UI Design", image: "https://images.unsplash.com/photo-1558655146-d09347e92766" },
+                { title: "Mobile App", image: "https://images.unsplash.com/photo-1551650975-87deedd944c3" },
+                { title: "Interactive Website", image: "https://images.unsplash.com/photo-1547658719-da2b51169166" },
+                { title: "Project Dashboard", image: "https://images.unsplash.com/photo-1484417894907-623942c8ee29" },
+                { title: "Logo Design", image: "https://images.unsplash.com/photo-1626785774573-4b799315345d" },
+                { title: "App UI", image: "https://images.unsplash.com/photo-1507721999472-8ed4421c4af2" },
+                { title: "Desktop App", image: "https://images.unsplash.com/photo-1485988412941-77a35537dae4" },
+                { title: "Responsive Design", image: "https://images.unsplash.com/photo-1517430816045-df4b7de11d1d" }
+            ],
+            contact: {
+                email: "fakhraldinyahi@gmail.com",
+                phone: "+967774922469",
+                location: "Amran, Yemen",
+                social: [
+                    { name: "LinkedIn", icon: "fa-linkedin", link: "https://linkedin.com/in/example" },
+                    { name: "GitHub", icon: "fa-github", link: "https://github.com/fakhraldinyahya" },
+                    { name: "Twitter", icon: "fa-twitter", link: "https://twitter.com/example" },
+                    { name: "Facebook", icon: "fa-facebook", link: "https://facebook.com/example" }
+                ]
+            }
+        };
         // Initialize the application
         document.addEventListener('DOMContentLoaded', function() {
             // Initialize AOS animation library
@@ -614,7 +860,9 @@
 
             // Populate resume data
             populateResumeData();
-
+            // Language toggle
+            const langToggle = document.getElementById('lang-toggle');
+            langToggle.addEventListener('click', toggleLanguage);
             // Mobile menu toggle
             const mobileMenuButton = document.getElementById('mobile-menu-button');
             const mobileMenu = document.getElementById('mobile-menu');
@@ -741,57 +989,69 @@
 
         // Populate resume data from the JSON object
         function populateResumeData() {
+            const data = currentLanguage === 'ar' ? resumeDataAr : resumeDataEn;
+            
+            // Clear existing content
+            document.getElementById('technical-skills').innerHTML = '';
+            document.getElementById('language-skills').innerHTML = '';
+            document.getElementById('experience-container').innerHTML = '';
+            document.getElementById('education-container').innerHTML = '';
+            document.getElementById('projects-container').innerHTML = '';
+            document.getElementById('gallery-container').innerHTML = '';
+            document.getElementById('social-links').innerHTML = '';
+            document.getElementById('footer-social-links').innerHTML = '';
+
             // Personal info
-            document.getElementById('nav-name').textContent = resumeData.personal.name;
-            document.getElementById('header-name').textContent = resumeData.personal.name;
-            document.getElementById('header-title').textContent = resumeData.personal.title;
-            document.getElementById('header-bio').textContent = resumeData.personal.bio;
-            document.getElementById('profile-img').src = resumeData.personal.photo;
-            document.getElementById('footer-name').textContent = resumeData.personal.name;
-            document.getElementById('footer-title').textContent = resumeData.personal.title;
-            document.getElementById('about-content').innerHTML = resumeData.personal.about;
+            document.getElementById('nav-name').textContent = data.personal.name;
+            document.getElementById('header-name').textContent = data.personal.name;
+            document.getElementById('header-title').textContent = data.personal.title;
+            document.getElementById('header-bio').textContent = data.personal.bio;
+            document.getElementById('profile-img').src = data.personal.photo;
+            document.getElementById('footer-name').textContent = data.personal.name;
+            document.getElementById('footer-title').textContent = data.personal.title;
+            document.getElementById('about-content').innerHTML = data.personal.about;
 
             // Skills
             const technicalSkillsContainer = document.getElementById('technical-skills');
-            resumeData.skills.technical.forEach(skill => {
+            data.skills.technical.forEach(skill => {
                 const skillElement = createSkillElement(skill);
                 technicalSkillsContainer.appendChild(skillElement);
             });
 
             const languageSkillsContainer = document.getElementById('language-skills');
             // Language skills
-            resumeData.skills.languages.forEach(skill => {
+            data.skills.languages.forEach(skill => {
                 const skillElement = createSkillElement(skill);
                 languageSkillsContainer.appendChild(skillElement);
             });
             
             // Soft skills
-            resumeData.skills.soft.forEach(skill => {
+            data.skills.soft.forEach(skill => {
                 const skillElement = createSkillElement(skill);
                 languageSkillsContainer.appendChild(skillElement);
             });
 
             // Experience
             const experienceContainer = document.getElementById('experience-container');
-            resumeData.experience.forEach((exp, index) => {
+            data.experience.forEach((exp, index) => {
                 experienceContainer.appendChild(createExperienceElement(exp, index));
             });
 
             // Education
             const educationContainer = document.getElementById('education-container');
-            resumeData.education.forEach(edu => {
+            data.education.forEach(edu => {
                 educationContainer.appendChild(createEducationElement(edu));
             });
 
             // Projects
             const projectsContainer = document.getElementById('projects-container');
-            resumeData.projects.forEach(project => {
+            data.projects.forEach(project => {
                 projectsContainer.appendChild(createProjectElement(project));
             });
 
             // Gallery
             const galleryContainer = document.getElementById('gallery-container');
-            resumeData.gallery.forEach(item => {
+            data.gallery.forEach(item => {
                 galleryContainer.appendChild(createGalleryElement(item));
             });
 
@@ -806,8 +1066,8 @@
                     <i class="fas fa-envelope text-primary"></i>
                 </div>
                 <div>
-                    <p class="font-medium">البريد الإلكتروني</p>
-                    <a href="mailto:${resumeData.contact.email}" class="text-primary hover:underline">${resumeData.contact.email}</a>
+                    <p class="font-medium">${currentLanguage === 'ar' ? 'البريد الإلكتروني' : 'Email'}</p>
+                    <a href="mailto:${data.contact.email}" class="text-primary hover:underline">${data.contact.email}</a>
                 </div>
             `;
             socialLinksContainer.appendChild(emailElement);
@@ -820,8 +1080,8 @@
                     <i class="fas fa-phone text-primary"></i>
                 </div>
                 <div>
-                    <p class="font-medium">الهاتف</p>
-                    <a href="tel:${resumeData.contact.phone}" class="text-primary hover:underline">${resumeData.contact.phone}</a>
+                    <p class="font-medium">${currentLanguage === 'ar' ? 'الهاتف' : 'Phone'}</p>
+                    <a href="tel:${data.contact.phone}" class="text-primary hover:underline">${data.contact.phone}</a>
                 </div>
             `;
             socialLinksContainer.appendChild(phoneElement);
@@ -834,15 +1094,15 @@
                     <i class="fas fa-map-marker-alt text-primary"></i>
                 </div>
                 <div>
-                    <p class="font-medium">الموقع</p>
-                    <p>${resumeData.contact.location}</p>
+                    <p class="font-medium">${currentLanguage === 'ar' ? 'الموقع' : 'Location'}</p>
+                    <p>${data.contact.location}</p>
                 </div>
             `;
             socialLinksContainer.appendChild(locationElement);
 
             // Footer social links
             const footerSocialLinks = document.getElementById('footer-social-links');
-            resumeData.contact.social.forEach(social => {
+            data.contact.social.forEach(social => {
                 const link = document.createElement('a');
                 link.href = social.link;
                 link.target = "_blank";
@@ -854,7 +1114,6 @@
                 footerSocialLinks.appendChild(link);
             });
         }
-
         // Create skill element
         function createSkillElement(skill) {
             const skillDiv = document.createElement('div');
@@ -948,7 +1207,7 @@
             const projectDiv = document.createElement('div');
             projectDiv.className = 'project-card bg-light-card dark:bg-dark-card rounded-xl shadow-md overflow-hidden';
             projectDiv.setAttribute('data-aos', 'fade-up');
-            
+            const show_project =currentLanguage === 'ar' ? 'عرض المشروع' : 'View Project';
             projectDiv.innerHTML = `
                 <div class="relative w-full h-48 overflow-hidden">
                     <img src="${project.image}" alt="${project.title}" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
@@ -962,7 +1221,7 @@
                         ).join('')}
                     </div>
                     <a href="${project.link}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center text-primary hover:text-secondary transition-colors duration-300">
-                        عرض المشروع
+                       ${show_project}
                         <i class="fas fa-arrow-left mr-2"></i>
                     </a>
                 </div>
